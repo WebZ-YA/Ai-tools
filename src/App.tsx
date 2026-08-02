@@ -16,6 +16,7 @@ import { AdminView } from './components/views/AdminView';
 import { ToolRunnerModal } from './components/ToolRunnerModal';
 import { SearchModal } from './components/SearchModal';
 import { SupabaseModal } from './components/SupabaseModal';
+import { AuthModal } from './components/AuthModal';
 
 import { toolsData } from './data/toolsData';
 import { Tool } from './types';
@@ -97,6 +98,8 @@ const AppContent: React.FC = () => {
         isOpen={showSqlModal}
         onClose={() => setShowSqlModal(false)}
       />
+
+      <AuthModal />
 
     </div>
   );

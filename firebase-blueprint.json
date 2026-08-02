@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "User account and settings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "avatar": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "pro", "admin"] },
+        "plan": { "type": "string" },
+        "creditsUsed": { "type": "number" },
+        "creditsLimit": { "type": "number" },
+        "apiKey": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email", "name"]
+    },
+    "history": {
+      "title": "Activity History",
+      "description": "User activity log for tools",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "toolId": { "type": "string" },
+        "toolName": { "type": "string" },
+        "input": { "type": "string" },
+        "output": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["userId", "toolId"]
+    },
+    "savedFiles": {
+      "title": "Saved Files",
+      "description": "User generated or saved file records",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "size": { "type": "string" },
+        "url": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "name"]
+    },
+    "favorites": {
+      "title": "Favorites",
+      "description": "User favorite tools mapping",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "toolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "toolId"]
+    }
+  },
+  "security": {
+    "users": {
+      "read": "request.auth != null",
+      "write": "request.auth != null"
+    },
+    "history": {
+      "read": "request.auth != null",
+      "write": "request.auth != null"
+    },
+    "savedFiles": {
+      "read": "request.auth != null",
+      "write": "request.auth != null"
+    },
+    "favorites": {
+      "read": "request.auth != null",
+      "write": "request.auth != null"
+    }
+  }
+}

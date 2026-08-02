@@ -21,7 +21,8 @@ import {
 
 export const AdminView: React.FC = () => {
   const { language } = useLanguage();
-  const { role } = useAuth();
+  const { role, login } = useAuth();
+  const isAr = language === 'ar';
 
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'coupons' | 'tickets'>('overview');
 
@@ -88,12 +89,28 @@ export const AdminView: React.FC = () => {
 
   if (role !== 'admin') {
     return (
-      <div className="max-w-md mx-auto py-16 text-center space-y-4">
-        <Shield className="w-12 h-12 text-red-500 mx-auto" />
-        <h2 className="text-xl font-bold text-white">Access Denied (المسؤول فقط)</h2>
-        <p className="text-xs text-slate-400">
-          This panel is restricted to system administrators. Switch role to Admin in Navbar to test.
-        </p>
+      <div className="max-w-md mx-auto py-20 px-4 text-center space-y-6">
+        <div className="w-16 h-16 rounded-3xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center mx-auto shadow-xl">
+          <Shield className="w-8 h-8" />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-black text-white">
+            {isAr ? 'منطقة محظورة - للمسؤولين فقط' : 'Access Restricted - Admin Only'}
+          </h2>
+          <p className="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto">
+            {isAr 
+              ? 'لوحة التحكم هذه مخصصة لإدارة منصة AI Business Toolkit والمستخدمين والأدوات. يرجى تسجيل الدخول بحساب المسؤول المعتمد.' 
+              : 'This dashboard is restricted to system administrators. Please sign in with your authorized admin email address.'}
+          </p>
+        </div>
+
+        <button
+          onClick={login}
+          className="px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 hover:scale-105 transition-transform inline-flex items-center gap-2"
+        >
+          <Shield className="w-4 h-4" />
+          <span>{isAr ? 'تسجيل الدخول كمسؤول (yassmohamad417@gmail.com)' : 'Sign In as Admin'}</span>
+        </button>
       </div>
     );
   }
